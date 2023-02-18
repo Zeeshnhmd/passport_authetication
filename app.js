@@ -1,9 +1,20 @@
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
+const mongoose = require('mongoose');
 
 const app = express();
 
-//EJS
+// DB Config
+const db = require('./config/keys').MongoURI;
+
+// Connect to MongoDb
+mongoose.set('strictQuery', false);
+mongoose
+	.connect(db)
+	.then(() => console.log('Connected to MongoDB'))
+	.catch((err) => console.log(`Error: ${err}`));
+
+// EJS
 app.use(expressLayout);
 app.set('view engine', 'ejs');
 
